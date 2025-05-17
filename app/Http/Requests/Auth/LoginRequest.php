@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -37,20 +39,60 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    // public function authenticate(): void
+    // {
+    //     $this->ensureIsNotRateLimited();
+
+    //     if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+    //         RateLimiter::hit($this->throttleKey());
+
+    //         throw ValidationException::withMessages([
+    //             'email' => trans('auth.failed'),
+    //         ]);
+    //     }
+
+    //     RateLimiter::clear($this->throttleKey());
+    // }
+
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
+        
+        $user = User::where('email', $this->input('email'))->first();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // 1. Verificar si el usuario existe
+        if (! $user) {
             RateLimiter::hit($this->throttleKey());
-
+            
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'No existe un usuario registrado con ese correo electrónico.',
             ]);
         }
 
+        // 2. Verificar contraseña
+        if (! Hash::check($this->input('password'), $user->password)) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'password' => 'La contraseña ingresada es incorrecta.',
+            ]);
+        }
+
+        // 3. Verificar si el usuario está activo
+        // if (! $user->is_active) {
+        //     RateLimiter::hit($this->throttleKey());
+
+        //     throw ValidationException::withMessages([
+        //         'email' => 'Tu cuenta está inactiva. Por favor, contacta al soporte para más información.',
+        //     ]);
+        // }
+
+        // 4. Autenticar
+        Auth::login($user, $this->boolean('remember'));
+
         RateLimiter::clear($this->throttleKey());
     }
+
 
     /**
      * Ensure the login request is not rate limited.
