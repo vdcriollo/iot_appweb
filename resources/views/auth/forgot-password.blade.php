@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 @section('content')
-    <form class="login-form" action="{{ route('password.email') }}" method="POST" id="form_login">
+    <form class="login-form" action="{{ route('password.email') }}" method="POST" id="form_global">
         @csrf
         <div class="card mb-0">
             <div class="card-body">

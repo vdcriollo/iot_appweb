@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 @section('content')
-    <form class="login-form" action="{{ route('password.store') }}" method="POST" id="form_login">
+    <form class="login-form" action="{{ route('password.store') }}" method="POST" id="form_reset_pw">
         @csrf
         <!-- Password Reset Token -->
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
@@ -49,10 +49,12 @@
                             <i class="fas fa-unlock"></i>
                         </div>
                         <input 
+                            id="password"
                             type="password" 
                             name="password"
                             class="form-control @error('password') is-invalid @enderror"
                             placeholder="Password"
+                            minlength="6"
                             required
                             >
                         <label>Password</label>
@@ -97,3 +99,21 @@
         </div>
     </form>
 @endsection
+@push('scriptFoot')
+<script>
+    
+    $('#form_reset_pw').validate({
+        rules: {
+            password: {
+                required: true,
+                minlength: 6
+            },
+            password_confirmation: {
+                required: true,
+                equalTo: '#password'
+            }
+        }
+    });
+
+</script>
+@endpush

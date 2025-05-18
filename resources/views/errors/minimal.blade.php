@@ -70,17 +70,19 @@
 
 						<!-- Error content -->
 						<div class="text-center">
-							@auth
-                            <a href="{{ route('dashboard') }}" class="btn btn-primary">
-								<i class="ph-house me-2"></i>
-								Regresar a dashboard
-							</a>
-                            @else
-                            <a href="{{ route('welcome') }}" class="btn btn-primary">
-								<i class="ph-house me-2"></i>
-								Regresar a inicio
-							</a>
-                            @endauth
+							
+
+							@guest
+								<a href="{{ route('dashboard') }}" class="btn btn-primary">
+									<i class="ph-house me-2"></i>
+									Regresar a dashboard
+								</a>
+							@else
+								<a href="{{ route('welcome') }}" class="btn btn-primary">
+									<i class="ph-house me-2"></i>
+									Regresar a inicio
+								</a>
+							@endguest
 						</div>
 						<!-- /error wrapper -->
 

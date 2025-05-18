@@ -7,15 +7,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'IOT APPWEB') }}</title>
+
+
 
 	<!-- Global stylesheets -->
-	<link href="{{ asset('assets/fonts/inter/inter.css') }}" rel="stylesheet" type="text/css">
+
 	<link href="{{ asset('assets/icons/phosphor/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/css/all.min.css') }}" id="stylesheet" rel="stylesheet" type="text/css">
 
 	
-	<link href="{{ asset('assets/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('assets/icons/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
@@ -31,10 +33,13 @@
 	<script src="{{ asset('assets/js/vendor/forms/validation/messages_es.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor/forms/selects/select2.min.js') }}"></script>
 
+	<link rel="stylesheet" href="{{ asset('assets/js/utils/jquery-confirm/jquery-confirm.min.css') }}">
+	<script src="{{ asset('assets/js/utils/jquery-confirm/jquery-confirm.min.js') }}"></script>
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<!-- /theme JS files -->
 
+	<script src="{{ asset('assets/js/utils/config_head.js') }}"></script>
 </head>
 
 <body>
@@ -232,6 +237,7 @@
 				</li>
 			</ul>
 
+			{{-- buscar --}}
 			<div class="navbar-collapse justify-content-center flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">
 				<div class="navbar-search flex-fill position-relative mt-2 mt-lg-0 mx-lg-3">
 					<div class="form-control-feedback form-control-feedback-start flex-grow-1" >
@@ -434,6 +440,7 @@
 					</a>
 				</li>
 
+				{{-- perfil de usuario --}}
 				<li class="nav-item nav-item-dropdown-lg dropdown ms-lg-2">
 					<a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
 						<div class="status-indicator-container">
@@ -495,82 +502,7 @@
 	<div class="page-content">
 
 		<!-- Main sidebar -->
-		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
-
-			<!-- Sidebar content -->
-			<div class="sidebar-content">
-
-				<!-- Sidebar header -->
-				<div class="sidebar-section">
-					<div class="sidebar-section-body d-flex justify-content-center">
-						<h5 class="sidebar-resize-hide flex-grow-1 my-auto">Menu</h5>
-
-						<div>
-							<button type="button" class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-control sidebar-main-resize d-none d-lg-inline-flex">
-								<i class="ph-arrows-left-right"></i>
-							</button>
-
-							<button type="button" class="btn btn-flat-white btn-icon btn-sm rounded-pill border-transparent sidebar-mobile-main-toggle d-lg-none">
-								<i class="ph-x"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<!-- /sidebar header -->
-
-
-				<!-- Main navigation -->
-				<div class="sidebar-section">
-					<ul class="nav nav-sidebar" data-nav-type="accordion">
-
-						<!-- Main -->
-                        
-						<li class="nav-item-header pt-0">
-							<div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Main</div>
-							<i class="ph-dots-three sidebar-resize-show"></i>
-						</li>
-                        
-						<li class="nav-item">
-							<a href="index.html" class="nav-link active">
-								<i class="ph-house"></i>
-								<span>
-									Dashboard
-								</span>
-							</a>
-						</li>
-						
-						<!-- Forms -->
-						{{-- <li class="nav-item-header">
-							<div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Forms</div>
-							<i class="ph-dots-three sidebar-resize-show"></i>
-						</li>
-						<li class="nav-item nav-item-submenu nav-item-expanded nav-item-open">
-							<a href="#" class="nav-link">
-								<i class="ph-note-pencil"></i>
-								<span>Form components</span>
-							</a>
-							<ul class="nav-group-sub collapse show">
-								
-								<li class="nav-item"><a href="form_controls_extended.html" class="nav-link">Extended controls</a></li>
-								<li class="nav-item"><a href="form_floating_labels.html" class="nav-link active">Floating labels</a></li>
-								<li class="nav-item"><a href="form_actions.html" class="nav-link">Form actions</a></li>
-								
-							</ul>
-						</li> --}}
-					
-						
-						<!-- /forms -->
-
-						
-
-					</ul>
-				</div>
-				<!-- /main navigation -->
-
-			</div>
-			<!-- /sidebar content -->
-			
-		</div>
+		@include('layouts.main-sidebar')
 		<!-- /main sidebar -->
 
 
@@ -582,7 +514,8 @@
 
 				<!-- Page header -->
 				<div class="page-header page-header-light shadow">
-					<div class="page-header-content d-lg-flex">
+
+					{{-- <div class="page-header-content d-lg-flex">
 						<div class="d-flex">
 							<h4 class="page-title mb-0">
 								Forms - <span class="fw-normal">Floating Labels</span>
@@ -671,455 +604,61 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 
-					<div class="page-header-content d-lg-flex border-top">
-						<div class="d-flex">
-							<div class="breadcrumb py-2">
-								<a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
-								<a href="#" class="breadcrumb-item">Forms</a>
-								<span class="breadcrumb-item active">Floating labels</span>
-							</div>
+					
+					{{-- breadcrumbs --}}
+					@hasSection ('breadcrumb')
+						
+						<div class="page-header-content d-lg-flex border-top">
 
-							<a href="#breadcrumb_elements" class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto" data-bs-toggle="collapse">
-								<i class="ph-caret-down collapsible-indicator ph-sm m-1"></i>
-							</a>
-						</div>
 
-						<div class="collapse d-lg-block ms-lg-auto" id="breadcrumb_elements">
-							<div class="d-lg-flex mb-2 mb-lg-0">
-								<a href="#" class="d-flex align-items-center text-body py-2">
-									<i class="ph-lifebuoy me-2"></i>
-									Support
-								</a>
-
-								<div class="dropdown ms-lg-3">
-									<a href="#" class="d-flex align-items-center text-body dropdown-toggle py-2" data-bs-toggle="dropdown">
-										<i class="ph-gear me-2"></i>
-										<span class="flex-1">Settings</span>
+							<div class="d-flex">
+								
+								
+								{{-- mostrar breadcrums desde la paginas que llegan --}}
+								<div class="breadcrumb py-2">
+									@yield('breadcrumb')
+								</div>
+							
+								{{-- si solo existe elementos derechos de breadcrubm_elemnet mmostrar caso contrario no. esto sirve para movil --}}
+								@hasSection ('breadcrumb_elements')
+									
+									<a href="#breadcrumb_elements" class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto" data-bs-toggle="collapse">
+										<i class="ph-caret-down collapsible-indicator ph-sm m-1"></i>
 									</a>
 
-									<div class="dropdown-menu dropdown-menu-end w-100 w-lg-auto">
-										<a href="#" class="dropdown-item">
-											<i class="ph-shield-warning me-2"></i>
-											Account security
-										</a>
-										<a href="#" class="dropdown-item">
-											<i class="ph-chart-bar me-2"></i>
-											Analytics
-										</a>
-										<a href="#" class="dropdown-item">
-											<i class="ph-lock-key me-2"></i>
-											Privacy
-										</a>
-										<div class="dropdown-divider"></div>
-										<a href="#" class="dropdown-item">
-											<i class="ph-gear me-2"></i>
-											All settings
-										</a>
-									</div>
-								</div>
+								@endif
+								
 							</div>
-						</div>
-					</div>
+
+							
+							
+							<div class="collapse d-lg-block ms-lg-auto" id="breadcrumb_elements">
+								@yield('breadcrumb_elements')
+							</div>
+
+
+						</div>	
+					@endif
+					
+
+
 				</div>
 				<!-- /page header -->
 
 
 				<!-- Content area -->
 				<div class="content">
-
-					<!-- Form inputs -->
-					<div class="card">
-						<div class="card-header">
-							<h5 class="mb-0">Floating labels</h5>
-						</div>
-
-						<div class="card-body">
-							<p class="mb-4">Input fields, textarea and select can have a material design style, where labels are displayed as placeholder in default state and scaled/moved when input is in focus or has a value. To enable floating labels, simply wrap a pair of <code>&lt;input class="form-control"></code> and <code>&lt;label></code> elements in container with <code>.form-floating</code> class. A placeholder is required on each <code>&lt;input></code> as our method of CSS-only floating labels uses the <code>:placeholder-shown</code> pseudo-element. Also note that the <code>&lt;input></code> must come first so we can utilize a sibling selector (e.g., <code>~</code>).</p>
-
-							<div class="mb-4">
-								<div class="fw-bold border-bottom pb-2 mb-3">Basic examples</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Basic</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">With value</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control" value="Input value" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2" for="focus_click">Focus on label click</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="focus_click" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">With form text</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-										<div class="form-text">Form helper text</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Framed form helper</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control rounded-bottom-0" placeholder="Placeholder">
-											<div class="form-text bg-light border border-top-0 rounded-bottom px-2 py-1 mt-0">Form helper</div>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Badge form helper</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control rounded-bottom-0" placeholder="Placeholder">
-											<div class="mt-1">
-												<span class="badge bg-primary">Badge helper</span>
-											</div>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Static text</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<div class="form-control-plaintext">This is a static text</div>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Static input</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control-plaintext" readonly value="This is a static readonly input" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Select</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<select class="form-select">
-												<option value="1">Option 1</option>
-												<option value="2">Option 2</option>
-												<option value="3">Option 3</option>
-											</select>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Data list combo</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input list="datalist_example" class="form-control" placeholder="Select option">
-											<datalist id="datalist_example">
-											    <option value="Option 1"></option>
-											    <option value="Option 2"></option>
-											    <option value="Option 3"></option>
-											    <option value="Option 4"></option>
-											    <option value="Option 5"></option>
-											    <option value="Option 6"></option>
-											    <option value="Option 7"></option>
-											    <option value="Option 8"></option>
-											</datalist>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Textarea</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<textarea class="form-control" placeholder="Placeholder" style="height: 100px;"></textarea>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Textarea with value</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<textarea class="form-control" placeholder="Placeholder" style="height: 100px;">Textarea text</textarea>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="mb-4">
-								<div class="fw-bold border-bottom pb-2 mb-3">States</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Readonly field</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control" value="Field value" placeholder="Placeholder" readonly>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Disabled field</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control" placeholder="Placeholder" disabled>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Readonly textarea</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<textarea class="form-control" placeholder="Placeholder" readonly style="height: 100px;">Textarea value</textarea>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Disabled textarea</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<textarea class="form-control" placeholder="Placeholder" disabled style="height: 100px;"></textarea>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Disabled select</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<select class="form-select" disabled>
-												<option value="1" selected>Selected option</option>
-												<option value="2">Option 2</option>
-												<option value="3">Option 3</option>
-											</select>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Disabled data list</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input list="datalist_example" class="form-control" placeholder="Select option" disabled>
-											<datalist id="datalist_example">
-											    <option value="Option 1"></option>
-											    <option value="Option 2"></option>
-											    <option value="Option 3"></option>
-											    <option value="Option 4"></option>
-											    <option value="Option 5"></option>
-											    <option value="Option 6"></option>
-											    <option value="Option 7"></option>
-											    <option value="Option 8"></option>
-											</datalist>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="mb-4">
-								<div class="fw-bold border-bottom pb-2 mb-3">Icons, spinners and buttons</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Left icon</label>
-									<div class="col-lg-10">
-										<div class="form-floating form-control-feedback form-control-feedback-start">
-											<div class="form-control-feedback-icon">
-												<i class="ph-user"></i>
-											</div>
-											<input type="text" class="form-control" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Left spinner</label>
-									<div class="col-lg-10">
-										<div class="form-floating form-control-feedback form-control-feedback-start">
-											<div class="form-control-feedback-icon">
-												<div class="spinner-border" role="status">
-													<span class="visually-hidden">Loading...</span>
-												</div>
-											</div>
-											<input type="text" class="form-control" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Right icon</label>
-									<div class="col-lg-10">
-										<div class="form-floating form-control-feedback form-control-feedback-end">
-											<input type="text" class="form-control" placeholder="Placeholder">
-											<div class="form-control-feedback-icon">
-												<i class="ph-user"></i>
-											</div>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Right spinner</label>
-									<div class="col-lg-10">
-										<div class="form-floating form-control-feedback form-control-feedback-end">
-											<input type="text" class="form-control" placeholder="Placeholder">
-											<div class="form-control-feedback-icon">
-												<div class="spinner-border" role="status">
-													<span class="visually-hidden">Loading...</span>
-												</div>
-											</div>
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Floating button</label>
-									<div class="col-lg-10">
-										<div class="position-relative">
-											<div class="form-floating">
-												<input type="text" class="form-control" placeholder="Placeholder">
-												<label>Floating label</label>
-											</div>
-											<div class="position-absolute end-0 top-50 translate-middle-y me-2">
-												<button type="button" class="btn btn-light btn-sm btn-icon rounded-pill">
-													<i class="ph-x"></i>
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Icon and floating button</label>
-									<div class="col-lg-10">
-										<div class="position-relative">
-											<div class="form-floating form-control-feedback form-control-feedback-start">
-												<div class="form-control-feedback-icon">
-													<i class="ph-magnifying-glass"></i>
-												</div>
-												<input type="text" class="form-control" placeholder="Placeholder">
-												<label>Floating label</label>
-											</div>
-											<div class="position-absolute end-0 top-50 translate-middle-y me-2">
-												<button type="button" class="btn btn-light btn-sm btn-icon rounded-pill">
-													<i class="ph-x"></i>
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div>
-								<div class="fw-bold border-bottom pb-2 mb-3">Validation</div>
-
-								<div class="row mb-3">
-									<label class="col-form-label col-lg-2">Success state</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control is-valid" value="Success" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="row">
-									<label class="col-form-label col-lg-2">Error state</label>
-									<div class="col-lg-10">
-										<div class="form-floating">
-											<input type="text" class="form-control is-invalid" value="Error" placeholder="Placeholder">
-											<label>Floating label</label>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /form inputs -->
+					@include('section.alert')
+					@yield('content')
 
 				</div>
 				<!-- content area -->
 
 
 				<!-- Footer -->
-				<div class="navbar navbar-sm navbar-footer border-top">
-					<div class="container-fluid">
-						<span>&copy; 2022 <a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328">Limitless Web App Kit</a></span>
-
-						<ul class="nav">
-							<li class="nav-item">
-								<a href="https://kopyov.ticksy.com/" class="navbar-nav-link navbar-nav-link-icon rounded" target="_blank">
-									<div class="d-flex align-items-center mx-md-1">
-										<i class="ph-lifebuoy"></i>
-										<span class="d-none d-md-inline-block ms-2">Support</span>
-									</div>
-								</a>
-							</li>
-							<li class="nav-item ms-md-1">
-								<a href="https://themes.kopyov.com/limitless/demo/Documentation/index.html" class="navbar-nav-link navbar-nav-link-icon rounded" target="_blank">
-									<div class="d-flex align-items-center mx-md-1">
-										<i class="ph-file-text"></i>
-										<span class="d-none d-md-inline-block ms-2">Docs</span>
-									</div>
-								</a>
-							</li>
-							<li class="nav-item ms-md-1">
-								<a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="navbar-nav-link navbar-nav-link-icon text-primary bg-primary bg-opacity-10 fw-semibold rounded" target="_blank">
-									<div class="d-flex align-items-center mx-md-1">
-										<i class="ph-shopping-cart"></i>
-										<span class="d-none d-md-inline-block ms-2">Purchase</span>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
+				@include('layouts.footer')
 				<!-- /footer -->
 
 			</div>
@@ -1320,122 +859,10 @@
 
 
 	<!-- Demo config -->
-	<div class="offcanvas offcanvas-end" tabindex="-1" id="demo_config">
-		<div class="position-absolute top-50 end-100 visible">
-			<button type="button" class="btn btn-primary btn-icon translate-middle-y rounded-end-0" data-bs-toggle="offcanvas" data-bs-target="#demo_config">
-				<i class="ph-gear"></i>
-			</button>
-		</div>
-
-		<div class="offcanvas-header border-bottom py-0">
-			<h5 class="offcanvas-title py-3">Demo configuration</h5>
-			<button type="button" class="btn btn-light btn-sm btn-icon border-transparent rounded-pill" data-bs-dismiss="offcanvas">
-				<i class="ph-x"></i>
-			</button>
-		</div>
-
-		<div class="offcanvas-body">
-			<div class="fw-semibold mb-2">Color mode</div>
-			<div class="list-group mb-3">
-				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-2">
-					<div class="d-flex flex-fill my-1">
-						<div class="form-check-label d-flex me-2">
-							<i class="ph-sun ph-lg me-3"></i>
-							<div>
-								<span class="fw-bold">Light theme</span>
-								<div class="fs-sm text-muted">Set light theme or reset to default</div>
-							</div>
-						</div>
-						<input type="radio" class="form-check-input cursor-pointer ms-auto" name="main-theme" value="light" checked>
-					</div>
-				</label>
-
-				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-2">
-					<div class="d-flex flex-fill my-1">
-						<div class="form-check-label d-flex me-2">
-							<i class="ph-moon ph-lg me-3"></i>
-							<div>
-								<span class="fw-bold">Dark theme</span>
-								<div class="fs-sm text-muted">Switch to dark theme</div>
-							</div>
-						</div>
-						<input type="radio" class="form-check-input cursor-pointer ms-auto" name="main-theme" value="dark">
-					</div>
-				</label>
-
-				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-0">
-					<div class="d-flex flex-fill my-1">
-						<div class="form-check-label d-flex me-2">
-							<i class="ph-translate ph-lg me-3"></i>
-							<div>
-								<span class="fw-bold">Auto theme</span>
-								<div class="fs-sm text-muted">Set theme based on system mode</div>
-							</div>
-						</div>
-						<input type="radio" class="form-check-input cursor-pointer ms-auto" name="main-theme" value="auto">
-					</div>
-				</label>
-			</div>
-
-			<div class="fw-semibold mb-2">Direction</div>
-			<div class="list-group mb-3">
-				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-0">
-					<div class="d-flex flex-fill my-1">
-						<div class="form-check-label d-flex me-2">
-							<i class="ph-translate ph-lg me-3"></i>
-							<div>
-								<span class="fw-bold">RTL direction</span>
-								<div class="text-muted">Toggle between LTR and RTL</div>
-							</div>
-						</div>
-						<input type="checkbox" name="layout-direction" value="rtl" class="form-check-input cursor-pointer m-0 ms-auto">
-					</div>
-				</label>
-			</div>
-
-			<div class="fw-semibold mb-2">Layouts</div>
-			<div class="row">
-				<div class="col-12">
-					<a href="index.html" class="d-block mb-3">
-						<img src="https://themes.kopyov.com/limitless/assets/images/layouts/layout_1.png" class="img-fluid img-thumbnail bg-primary bg-opacity-20 border-primary" alt="">
-					</a>
-				</div>
-				<div class="col-12">
-					<a href="../../layout_2/full/index.html" class="d-block mb-3">
-						<img src="https://themes.kopyov.com/limitless/assets/images/layouts/layout_2.png" class="img-fluid img-thumbnail" alt="">
-					</a>
-				</div>
-				<div class="col-12">
-					<a href="../../layout_3/full/index.html" class="d-block mb-3">
-						<img src="https://themes.kopyov.com/limitless/assets/images/layouts/layout_3.png" class="img-fluid img-thumbnail" alt="">
-					</a>
-				</div>
-				<div class="col-12">
-					<a href="../../layout_4/full/index.html" class="d-block mb-3">
-						<img src="https://themes.kopyov.com/limitless/assets/images/layouts/layout_4.png" class="img-fluid img-thumbnail" alt="">
-					</a>
-				</div>
-				<div class="col-12">
-					<a href="../../layout_5/full/index.html" class="d-block mb-3">
-						<img src="https://themes.kopyov.com/limitless/assets/images/layouts/layout_5.png" class="img-fluid img-thumbnail" alt="">
-					</a>
-				</div>
-				<div class="col-12">
-					<a href="../../layout_6/full/index.html" class="d-block">
-						<img src="https://themes.kopyov.com/limitless/assets/images/layouts/layout_6.png" class="img-fluid img-thumbnail" alt="">
-					</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="border-top text-center py-2 px-3">
-			<a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="btn btn-yellow fw-semibold w-100 my-1" target="_blank">
-				<i class="ph-shopping-cart me-2"></i>
-				Purchase Limitless
-			</a>
-		</div>
-	</div>
+	@include('layouts.config')
 	<!-- /demo config -->
+	
+	<script src="{{ asset('assets/js/utils/config_foot.js') }}"></script>
 
 </body>
 </html>

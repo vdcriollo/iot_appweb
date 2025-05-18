@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'IOT APPWEB') }}</title>
 
 	<!-- Global stylesheets -->
 	<link href="{{ asset('assets/fonts/inter/inter.css') }}" rel="stylesheet" type="text/css">
@@ -16,7 +16,7 @@
 	<link href="{{ asset('assets/css/all.min.css') }}" id="stylesheet" rel="stylesheet" type="text/css">
 
 	
-	<link href="{{ asset('assets/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('assets/icons/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
@@ -32,9 +32,16 @@
 	<script src="{{ asset('assets/js/vendor/forms/validation/messages_es.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor/forms/selects/select2.min.js') }}"></script>
 
+	<link rel="stylesheet" href="{{ asset('assets/js/utils/jquery-confirm/jquery-confirm.min.css') }}">
+	<script src="{{ asset('assets/js/utils/jquery-confirm/jquery-confirm.min.js') }}"></script>
+	
+	
+	
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<!-- /theme JS files -->
+
+	<script src="{{ asset('assets/js/utils/config_head.js') }}"></script>
 
 </head>
 
@@ -71,7 +78,7 @@
 						<li class="nav-item">
 							<a href="{{ route('welcome') }}" class="navbar-nav-link navbar-nav-link-icon rounded ms-1 {{ Route::is('welcome')?'active fw-bold':'' }}">
 								<div class="d-flex align-items-center mx-md-1">
-								<i class="fas fa-home"></i>
+								<i class="fa-solid fa-house"></i>
 								<span class="d-none d-md-inline-block ms-2">Inicio</span>
 							</div>
 							</a>
@@ -80,7 +87,7 @@
 						<li class="nav-item ">
 							<a href="{{ route('login') }}" class="navbar-nav-link navbar-nav-link-icon rounded ms-1 {{ Route::is('login')?'active fw-bold':'' }}">
 								<div class="d-flex align-items-center mx-md-1">
-								<i class="fas fa-sign-in-alt"></i>
+								<i class="fa-solid fa-right-to-bracket"></i>
 								<span class="d-none d-md-inline-block ms-2">Ingresar</span>
 							</div>
 							</a>
@@ -133,47 +140,8 @@
 	@include('layouts.config')
 	<!-- /demo config -->
 
-	<script>
-		$.validator.setDefaults({
-			ignore: 'input[type=hidden], .select2-search__field',
-			errorClass: 'is-invalid',
-			validClass: 'is-valid',
-			highlight: function(element) {
-				$(element).addClass('is-invalid').removeClass('is-valid');
-			},
-			unhighlight: function(element) {
-				$(element).removeClass('is-invalid').addClass('is-valid');
-			},
-			errorPlacement: function(error, element) {
-				const feedbackContainer = $(element).closest('.form-floating').find('.invalid-feedback');
-
-				if (feedbackContainer.length) {
-					feedbackContainer.text(error.text()).show();
-				} else {
-					const newFeedback = $('<div class="invalid-feedback fw-bold"></div>').text(error.text());
-					$(element).parent().append(newFeedback);
-				}
-			},
-			submitHandler: function (form) {
-				form.submit();
-			}
-		});
-
-		$('#form_login').validate({
-			rules: {
-				email: {
-					required: true,
-					email: true
-				},
-				password: {
-					required: true,
-					minlength: 6
-				}
-			}
-		});
-
-
-</script>
+	<script src="{{ asset('assets/js/utils/config_foot.js') }}"></script>
+	@stack('scriptFoot')
 
 </body>
 </html>

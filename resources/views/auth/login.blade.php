@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('content')
     <!-- Login form -->
-    <form class="login-form" action="{{ route('login') }}" method="POST" id="form_login">
+    <form class="login-form" action="{{ route('login') }}" method="POST" id="form_global">
         @csrf
         <div class="card mb-0">
             <div class="card-body">
@@ -20,7 +20,7 @@
                 <div class="mb-3">
                     <div class="form-floating form-control-feedback form-control-feedback-start">
                         <div class="form-control-feedback-icon">
-                            <i class="fas fa-envelope"></i>
+                            <i class="fa-solid fa-envelope"></i>
                         </div>
                         <input 
                             type="email" 
@@ -43,13 +43,14 @@
                 <div class="mb-3">
                     <div class="form-floating form-control-feedback form-control-feedback-start">
                         <div class="form-control-feedback-icon">
-                            <i class="fas fa-unlock"></i>
+                            <i class="fa-solid fa-lock"></i>
                         </div>
                         <input 
                             type="password" 
                             name="password"
                             class="form-control @error('password') is-invalid @enderror"
                             placeholder="Password"
+                            minlength="6"
                             required
                             >
                         <label>Password</label>

@@ -37,6 +37,7 @@ class PermissionRoleUserSeed extends Seeder
                 'name' => 'Vilmer',
                 'password' => Hash::make('david.criollo14@gmail.com'),
                 'is_active' => true,
+                'email_verified_at'=>now()
             ]
         );
 
