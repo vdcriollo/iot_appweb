@@ -37,7 +37,16 @@
                     <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard')?'active':'' }} ">
                         <i class="fa-solid fa-house"></i>
                         <span>
-                            Dashboard
+                            Inicio
+                        </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('usuarios.index') }}" class="nav-link {{ Route::is('usuarios*')?'active':'' }} ">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>
+                            Usuarios
                         </span>
                     </a>
                 </li>

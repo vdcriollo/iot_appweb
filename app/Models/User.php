@@ -61,7 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         static::creating(function (self $user): void {
             $user->is_admin ??= false;
-            $user->is_active ??= false;
+            $user->is_active ??= true;
             $user->email_verified ??= false;
             $user->password_hash ??= Hash::make(now());
             $user->note ??= '';

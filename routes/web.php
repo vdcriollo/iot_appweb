@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolPermisoController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // roles y permisos
     Route::resource('rol-permisos', RolPermisoController::class);
-    Route::put('/rol/{id_rol}/permisos', [RolPermisoController::class, 'actualizarPermisosRol'])->name('rol-permisos.actualizar');
-
+    // usuarios
+    Route::resource('usuarios', UserController::class);
 
 });
 

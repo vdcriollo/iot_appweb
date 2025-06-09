@@ -9,18 +9,39 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
-Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
-    $trail->push('Dashboard', route('dashboard'));
+Breadcrumbs::for('inicio', function (BreadcrumbTrail $trail) {
+    $trail->push('Inicio', route('dashboard'));
 });
 
-// Home > Blog
+
+
 Breadcrumbs::for('rol-permisos.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('dashboard');
-    $trail->push('Roles y permisos', route('rol-permisos.index'));
+    $trail->parent('inicio');
+    $trail->push('Rol y permisos', route('rol-permisos.index'));
+});
+
+// usuarios
+Breadcrumbs::for('usuarios', function (BreadcrumbTrail $trail) {
+    $trail->parent('inicio');
+    $trail->push('Usuarios', route('usuarios.index'));
+});
+
+Breadcrumbs::for('usuarios.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('usuarios');
+    $trail->push('Crear', route('usuarios.create'));
+});
+
+Breadcrumbs::for('', function (BreadcrumbTrail $trail) {
+    $trail->parent('usuarios');
+    $trail->push('Crear', route('usuarios.create'));
 });
 
 // Home > Blog > [Category]
-Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-    $trail->parent('blog');
-    $trail->push($category->title, route('category', $category));
+Breadcrumbs::for('usuarios.edit', function (BreadcrumbTrail $trail, $user) {
+    $trail->parent('inicio');
+    $trail->push('Editar', route('usuarios.edit', $user));
 });
+
+
+
+

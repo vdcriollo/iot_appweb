@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-    {{ Breadcrumbs::render('dashboard') }}
+    {{ Breadcrumbs::render('inicio') }}
 @endsection
 
 @section('breadcrumb_elements')

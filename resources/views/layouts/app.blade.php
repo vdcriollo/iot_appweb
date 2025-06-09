@@ -29,16 +29,23 @@
 	<!-- Theme JS files -->
 
 	<script src="{{ asset('assets/js/jquery/jquery.min.js') }}"></script>
+	{{-- validate --}}
 	<script src="{{ asset('assets/js/vendor/forms/validation/validate.min.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor/forms/validation/messages_es.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+	
 
+	{{-- confirm --}}
 	<link rel="stylesheet" href="{{ asset('assets/js/utils/jquery-confirm/jquery-confirm.min.css') }}">
 	<script src="{{ asset('assets/js/utils/jquery-confirm/jquery-confirm.min.js') }}"></script>
 
+	
+
+	{{-- propio de templade --}}
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<!-- /theme JS files -->
 
+	{{-- config app dev --}}
 	<script src="{{ asset('assets/js/utils/config_head.js') }}"></script>
 </head>
 
@@ -650,6 +657,8 @@
 
 				<!-- Content area -->
 				<div class="content">
+
+					
 					@include('section.alert')
 					@yield('content')
 
@@ -858,11 +867,61 @@
 	<!-- /notifications -->
 
 
+	{{-- Formulario global oculto --}}
+		<form id="form-global-eliminar" method="POST" style="display: none;">
+			@csrf
+			@method('DELETE')
+		</form>
+
+
+
+
+
 	<!-- Demo config -->
 	@include('layouts.config')
 	<!-- /demo config -->
 	
 	<script src="{{ asset('assets/js/utils/config_foot.js') }}"></script>
+	{{-- para los script extras, como datatable --}}
+	{{-- usar prepend, para cargar pimero o se ejecute primero, y push para que se ejecute segundo --}}
+
+	@stack('scripts')
+	
+<script>
+
+
+	function confirmarEliminacion(button) {
+		const url = $(button).data('url');
+
+		$.confirm({
+			title: '¿Estás seguro?',
+			content: 'Esta acción eliminará permanentemente al usuario.',
+			icon: 'fa fa-exclamation-triangle',
+			type: 'red',
+			theme: 'modern',
+			buttons: {
+				confirmar: {
+					text: 'Sí, eliminar',
+					btnClass: 'btn-red',
+					action: function () {
+						mostrarDialogoProcesando();
+
+						const form = $('#form-global-eliminar');
+						form.attr('action', url);
+						form.submit();
+					}
+				},
+				cancelar: {
+					text: 'Cancelar',
+					btnClass: 'btn-default'
+				}
+			}
+		});
+	}
+</script>
+
+
+
 
 </body>
 </html>

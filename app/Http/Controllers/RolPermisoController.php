@@ -63,18 +63,6 @@ class RolPermisoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    public function actualizarPermisosRol(Request $request, $id) {
         $request->validate([
             'permissions' => 'nullable|array',
             'permissions.*' => 'exists:permissions,name',
@@ -90,4 +78,14 @@ class RolPermisoController extends Controller
 
         return back()->with('success', 'Permisos actualizados correctamente.');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+
 }

@@ -19,7 +19,7 @@ class PermissionRoleUserSeed extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         
 
-        $permissions = ['Usuarios'];
+        $permissions = ['Usuarios','Roles y permisos'];
 
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm]);

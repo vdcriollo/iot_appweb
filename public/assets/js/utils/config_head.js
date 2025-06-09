@@ -55,3 +55,6 @@ function cerrarDialogoProcesando() {
 		form.submit();
 	}
 });
+
+// select 2
+$('.select').select2();

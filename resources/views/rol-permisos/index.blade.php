@@ -60,7 +60,7 @@
             <div class="col-sm-12 col-md-4">
                 <form 
                         id="form-permisos-{{ $rol->uuid }}" 
-                        action="{{ route('rol-permisos.actualizar', ['id_rol' => $rol->uuid]) }}"
+                        action="{{ route('rol-permisos.update',$rol->uuid) }}"
                         method="POST" class="form-permisos">
                     @csrf
                     @method('PUT')
